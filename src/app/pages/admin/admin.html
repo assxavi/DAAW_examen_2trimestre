@@ -1,0 +1,13 @@
+<h2>Admin</h2>
+
+@if (auth.user()) {
+  <p>Sesión: {{ auth.user()?.email }}</p>
+}
+
+<button (click)="showToken()">Ver ID Token</button>
+
+@if (token) {
+  <pre class="token">{{ token }}</pre>
+}
+
+<button class="logout" (click)="logout()">Logout</button>

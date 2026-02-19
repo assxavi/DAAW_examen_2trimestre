@@ -1,0 +1,39 @@
+<h2>Login</h2>
+
+<form [formGroup]="form" (ngSubmit)="onLogin()" class="card">
+  <label>
+    Email
+    <input type="email" formControlName="email" />
+  </label>
+
+  @if (email.touched && email.errors?.['required']) {
+    <small class="err">Email obligatorio</small>
+  }
+  @if (email.touched && email.errors?.['email']) {
+    <small class="err">Email no válido</small>
+  }
+
+  <label>
+    Contraseña
+    <input type="password" formControlName="password" />
+  </label>
+
+  @if (password.touched && password.errors?.['required']) {
+    <small class="err">Contraseña obligatoria</small>
+  }
+  @if (password.touched && password.errors?.['minlength']) {
+    <small class="err">Mínimo 6 caracteres</small>
+  }
+
+  <button type="submit" [disabled]="form.invalid">Entrar</button>
+</form>
+
+<div class="row">
+  <button type="button" (click)="onRegister()" [disabled]="form.invalid">
+    Crear cuenta
+  </button>
+</div>
+
+@if (error) {
+  <p class="err">{{ error }}</p>
+}

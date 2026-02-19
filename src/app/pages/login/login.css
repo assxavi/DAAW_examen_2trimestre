@@ -1,0 +1,7 @@
+.card { display: grid; gap: 10px; max-width: 360px; padding: 16px; border: 1px solid #ddd; border-radius: 10px; }
+label { display: grid; gap: 6px; }
+input { padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+button { padding: 10px; border-radius: 8px; border: 1px solid #ccc; cursor: pointer; }
+button[disabled] { opacity: 0.6; cursor: not-allowed; }
+.row { margin-top: 10px; display: flex; gap: 10px; }
+.err { color: #b00020; margin-top: 10px; }

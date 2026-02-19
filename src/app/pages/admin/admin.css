@@ -1,0 +1,9 @@
+.token {
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin-top: 12px;
+}
+
+.logout {
+  margin-top: 12px;
+}
