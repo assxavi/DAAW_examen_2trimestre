@@ -24,6 +24,11 @@ jobs:
       - name: Build production
         run: npx ng build --configuration production
 
+      - name: Ensure dist folder exists
+        run: |
+          test -f dist/app-angular/browser/index.html
+          echo "OK: dist/app-angular/browser/index.html exists"
+
       - name: Add SSH key
         uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -34,9 +39,16 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy dist to Apache folder
+      - name: Test SSH connection
+        run: |
+          ssh -p ${{ secrets.SSH_PORT }} \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "whoami && hostname && ls -ld /var/www/html/examen"
+
+      - name: Deploy to Apache folder (rsync)
         run: |
           rsync -avz --delete \
             -e "ssh -p ${{ secrets.SSH_PORT }}" \
             dist/app-angular/browser/ \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/examen/
+
